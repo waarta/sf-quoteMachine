@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste Quotes{% endblock %}
+
+{% block body %}
+    <h1 > Quotes </h1>
+    <ul>
+    {% for q in quotes %}
+        <li>{{ q.quote }}  <p class="meta">---{{q.meta}}</p></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .meta{
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
