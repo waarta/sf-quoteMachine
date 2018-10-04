@@ -2,7 +2,12 @@
 
 {% block title %}Liste Quotes{% endblock %}
 
+
+
 {% block body %}
+
+{{ include('new.html.twig') }}
+
 <h1> Quotes </h1>
 <form name="f" method="get">
     <input name="search" id="search" type="text">
@@ -11,7 +16,13 @@
 
 <ul>
     {% for q in quotes %}
-    <li>{{ q.quote }} <p class="meta">---{{q.meta}}</p>
+    <li>
+        {{ q.quote }}
+        <p class="meta">---{{q.meta}}
+            <a href="{{ path('modify')}}{{q.id}} ">Modifier</a>
+            <a href="/delete/{{q.id}}">Supprimer</a>
+        </p>
+
     </li>
     {% endfor %}
 </ul>
@@ -21,6 +32,7 @@
 <style>
     .meta {
         font-style: italic;
+        color: grey;
     }
 </style>
 {% endblock %}

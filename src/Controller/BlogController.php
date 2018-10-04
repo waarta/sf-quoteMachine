@@ -1,5 +1,4 @@
 <?php
-// src/Controller/BlogController.php
 
 namespace App\Controller;
 

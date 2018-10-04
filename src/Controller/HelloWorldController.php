@@ -1,5 +1,4 @@
 <?php
-// src/Controller/HelloWorldController.php
 
 namespace App\Controller;
 
