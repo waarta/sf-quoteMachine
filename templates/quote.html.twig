@@ -3,18 +3,24 @@
 {% block title %}Liste Quotes{% endblock %}
 
 {% block body %}
-    <h1 > Quotes </h1>
-    <ul>
+<h1> Quotes </h1>
+<form name="f" method="get">
+    <input name="search" id="search" type="text">
+    <input type="submit" value="search">
+</form>
+
+<ul>
     {% for q in quotes %}
-        <li>{{ q.quote }}  <p class="meta">---{{q.meta}}</p></li>
+    <li>{{ q.quote }} <p class="meta">---{{q.meta}}</p>
+    </li>
     {% endfor %}
-    </ul>
+</ul>
 {% endblock %}
 
 {% block stylesheets %}
-    <style>
-        .meta{
-            font-style: italic;
-        }
-    </style>
+<style>
+    .meta {
+        font-style: italic;
+    }
+</style>
 {% endblock %}
