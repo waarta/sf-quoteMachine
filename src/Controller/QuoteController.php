@@ -53,8 +53,8 @@ class QuoteController extends Controller
         $quoteReposit = new QuoteRepository("../var/quotes.json");
 
         $q = $quoteReposit->find($id);
-        // $quoteReposit->delete($q);
-        return $this->render('delete.html.twig', ['id' => $id, 'q' => $q]);
+        $quoteReposit->delete($q);
+        return $this->redirectToRoute('list_quotes');
     }
 
     /**
@@ -63,7 +63,6 @@ class QuoteController extends Controller
     public function modify($id)
     {
         $quoteReposit = new QuoteRepository("../var/quotes.json");
-
         $q = $quoteReposit->find($id);
         return $this->render('modify.html.twig', ['id' => $id, 'q' => $q]);
     }

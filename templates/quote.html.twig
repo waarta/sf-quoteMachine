@@ -19,8 +19,9 @@
     <li>
         {{ q.quote }}
         <p class="meta">---{{q.meta}}
-            <a href="{{ path('modify')}}{{q.id}} ">Modifier</a>
-            <a href="/delete/{{q.id}}">Supprimer</a>
+            <!-- revoir path-->
+            <a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>
+            <a href="{{ path('delete_quotes', {'id': q.id}) }}">Supprimer</a>
         </p>
 
     </li>
