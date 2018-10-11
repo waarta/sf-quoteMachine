@@ -60,10 +60,19 @@ class QuoteController extends Controller
     /**
      * @Route("/modify/{id}", name="modify_quotes")
      */
-    public function modify($id)
+    public function modify(Request $rq, $id)
     {
         $quoteReposit = new QuoteRepository("../var/quotes.json");
         $q = $quoteReposit->find($id);
-        return $this->render('modify.html.twig', ['id' => $id, 'q' => $q]);
+
+        $formAdd = $this->createForm(QuoteType::class, $q);
+        $formAdd->handleRequest($rq);
+        if ($formAdd->isSubmitted() && $formAdd->isValid()) {
+            $q = $formAdd->getData();
+            $quoteReposit->persist($q);
+            $quotes = $quoteReposit->findAll();
+            return $this->redirectToRoute('list_quotes');
+        }
+        return $this->render('modify.html.twig', ['id' => $id, 'q' => $q, 'formAdd' => $formAdd->createView()]);
     }
 }
