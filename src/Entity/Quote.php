@@ -2,50 +2,56 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\QuoteRepository")
+ */
 class Quote
 {
     /**
-     * @var string
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
-    private $id = null;
+    private $id;
 
     /**
-     * @var string
+     * @ORM\Column(type="text")
      */
-    private $quote = "";
+    private $content;
 
     /**
-     * @var string
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $meta = "";
+    private $meta;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setQuote($q)
+    public function getContent(): ?string
     {
-        $this->quote = $q;
+        return $this->content;
     }
 
-    public function getQuote()
+    public function setContent(string $content): self
     {
-        return $this->quote;
+        $this->content = $content;
+
+        return $this;
     }
 
-    public function getMeta()
+    public function getMeta(): ?string
     {
         return $this->meta;
     }
 
-    public function setmeta($m)
+    public function setMeta(?string $meta): self
     {
-        $this->meta = $m;
-    }
+        $this->meta = $meta;
 
-    public function setId($id)
-    {
-        $this->id = $id;
+        return $this;
     }
 }

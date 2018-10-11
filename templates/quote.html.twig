@@ -2,8 +2,6 @@
 
 {% block title %}Liste Quotes{% endblock %}
 
-
-
 {% block body %}
 
 {{ include('new.html.twig') }}
@@ -17,9 +15,8 @@
 <ul>
     {% for q in quotes %}
     <li>
-        {{ q.quote }}
+        {{ q.content }}
         <p class="meta">---{{q.meta}}
-            <!-- revoir path-->
             <a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>
             <a href="{{ path('delete_quotes', {'id': q.id}) }}">Supprimer</a>
         </p>

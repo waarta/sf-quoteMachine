@@ -11,7 +11,7 @@ class QuoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quote', TextareaType::class, ['label' => 'Citation'])
+            ->add('content', TextareaType::class, ['label' => 'Citation'])
             ->add('meta', TextareaType::class, ['label' => 'Auteur'])
             ->add('save', SubmitType::class)
         ;
