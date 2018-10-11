@@ -10,21 +10,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuoteController extends Controller
 {
-    public function create()
+    /*public function create()
     {
-        $em = $this->getDoctrine()->getManager();
-        $quote1 = new Quote();
-        $quote1->setContent("Sire, Sire !!! On en a gros !");
-        $quote1->setMeta("Perceval, Livre II, Les Exploit\u00e9s");
+    $em = $this->getDoctrine()->getManager();
+    $quote1 = new Quote();
+    $quote1->setContent("Sire, Sire !!! On en a gros !");
+    $quote1->setMeta("Perceval, Livre II, Les Exploit\u00e9s");
 
-        $quote2 = new Quote();
-        $quote2->setContent("[Dame S\u00e9li : Les tartes, la p\u00eache, tout \u00e7a c'est du patrimoine] (Arthur, montrant la tarte) C'est du patrimoine \u00e7a ?\n");
-        $quote2->setMeta("Arthur, Livre I, La tarte aux myrtilles");
+    $quote2 = new Quote();
+    $quote2->setContent("[Dame S\u00e9li : Les tartes, la p\u00eache, tout \u00e7a c'est du patrimoine] (Arthur, montrant la tarte) C'est du patrimoine \u00e7a ?\n");
+    $quote2->setMeta("Arthur, Livre I, La tarte aux myrtilles");
 
-        $em->persist($quote1);
-        $em->persist($quote2);
-        $em->flush();
-    }
+    $em->persist($quote1);
+    $em->persist($quote2);
+    $em->flush();
+    }*/
 
     /**
      * @Route("/quotes/", name="list_quotes")
@@ -85,7 +85,6 @@ class QuoteController extends Controller
         $em->remove($q);
         $em->flush();
         return $this->redirectToRoute('list_quotes');
-
     }
 
     /**

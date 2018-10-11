@@ -4,9 +4,9 @@
 
 {% block body %}
 
+<h1> Quotes </h1>
 {{ include('new.html.twig') }}
 
-<h1> Quotes </h1>
 <form name="f" method="get">
     <input name="search" id="search" type="text">
     <input type="submit" value="search">
@@ -31,6 +31,11 @@
     .meta {
         font-style: italic;
         color: grey;
+    }
+
+    h1,
+    form {
+        text-align: center
     }
 </style>
 {% endblock %}
