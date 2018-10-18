@@ -1,6 +1,9 @@
 <?php
 namespace App\Form;
 
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,7 +16,16 @@ class QuoteType extends AbstractType
         $builder
             ->add('content', TextareaType::class, ['label' => 'Citation'])
             ->add('meta', TextareaType::class, ['label' => 'Auteur'])
-            ->add('save', SubmitType::class)
-        ;
+            ->add('category', EntityType::class, array(
+                'class' => Category::class,
+                'required' => false,
+                'placeholder' => "",
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.libCatg', 'ASC');
+                },
+                'choice_label' => 'libCatg'))
+            ->add('save', SubmitType::class);
+
     }
 }

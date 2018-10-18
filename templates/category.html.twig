@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste Categories{% endblock %}
+
+{% block body %}
+
+<h1> Categories </h1>
+{{ include('new.html.twig') }}
+<a href="{{ path('list_quotes') }} ">Quotes</a>
+<ul>
+    {% for c in categories %}
+    <li>
+        <p>
+            {{ c.libCatg }}
+            <a href="{{ path('modify_catg', {'id': c.id}) }} ">Modifier</a>
+            <a href="{{ path('delete_catg', {'id': c.id}) }}">Supprimer</a>
+            <a href="{{ path('showQuotes_catg', {'id': c.id}) }}">voir quotes</a>
+        </p>
+
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    h1,
+    form {
+        text-align: center
+    }
+</style>
+{% endblock %}

@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create("fr_FR");
         $quote1 = new Quote();
         $quote1->setContent("Sire, Sire !!! On en a gros !");
         $quote1->setMeta("Perceval, Livre II, Les Exploit\u00e9s");

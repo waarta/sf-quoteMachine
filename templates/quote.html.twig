@@ -5,17 +5,26 @@
 {% block body %}
 
 <h1> Quotes </h1>
+
+{% if formAdd is defined %}
 {{ include('new.html.twig') }}
+{% endif %}
+
 
 <form name="f" method="get">
     <input name="search" id="search" type="text">
     <input type="submit" value="search">
 </form>
 
+<a href="{{ path('list_catg') }} ">Catégories</a>
+
 <ul>
     {% for q in quotes %}
     <li>
-        {{ q.content }}
+        {{ q.content }}<br />
+        {% if q.category != null %}
+        {{ q.category.libCatg }}
+        {% endif %}
         <p class="meta">---{{q.meta}}
             <a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>
             <a href="{{ path('delete_quotes', {'id': q.id}) }}">Supprimer</a>
