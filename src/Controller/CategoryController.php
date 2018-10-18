@@ -86,12 +86,7 @@ class CategoryController extends Controller
         $quoteReposit = $this->getDoctrine()->getRepository(Quote::class);
         $catg = $catgReposit->find($id);
 
-        $query = $quoteReposit->createQueryBuilder('q')
-            ->where('q.category = :id')
-            ->setParameter('id', $id)
-            ->orderBy('q.content', 'ASC')
-            ->getQuery();
-        $quotes = $query->getResult();
+        $quotes = $catg->getQuotes();
 
         //recherche
         $search = $rq->query->get('search');

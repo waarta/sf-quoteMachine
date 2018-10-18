@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Util\Slugger;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,6 +29,11 @@ class Category
      */
     private $quotes;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->quotes = new ArrayCollection();
@@ -46,6 +52,7 @@ class Category
     public function setLibCatg(string $libCatg): self
     {
         $this->libCatg = $libCatg;
+        $this->slug = Slugger::slugify($libCatg);
 
         return $this;
     }
@@ -77,6 +84,18 @@ class Category
                 $quote->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
