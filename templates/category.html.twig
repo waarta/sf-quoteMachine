@@ -13,9 +13,9 @@
         <p>
             {{ c.libCatg }}
             (slug:{{ c.slug }})
-            <a href="{{ path('modify_catg', {'id': c.id}) }} ">Modifier</a>
+            <a href="{{ path('modify_catg', {'slug': c.slug}) }} ">Modifier</a>
             <a href="{{ path('delete_catg', {'id': c.id}) }}">Supprimer</a>
-            <a href="{{ path('showQuotes_catg', {'id': c.id}) }}">voir quotes</a>
+            <a href="{{ path('showQuotes_catg', {'slug': c.slug}) }}">voir quotes</a>
         </p>
 
     </li>

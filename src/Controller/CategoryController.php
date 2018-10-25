@@ -57,13 +57,13 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/modifyCategory/{id}", name="modify_catg")
+     * @Route("/modifyCategory/{slug}", name="modify_catg")
      */
-    public function modify(Request $rq, $id)
+    public function modify(Request $rq, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $catgReposit = $this->getDoctrine()->getRepository(Category::class);
-        $catg = $catgReposit->find($id);
+        $catg = $catgReposit->findOneBy(['slug' => $slug]);
 
         $formAdd = $this->createForm(CategoryType::class, $catg);
         $formAdd->handleRequest($rq);
@@ -73,18 +73,19 @@ class CategoryController extends Controller
             $em->flush();
             return $this->redirectToRoute('list_catg');
         }
-        return $this->render('modify_catg.html.twig', ['id' => $id, 'c' => $catg, 'formAdd' => $formAdd->createView()]);
+        return $this->render('modify_catg.html.twig', ['slug' => $slug, 'c' => $catg, 'formAdd' => $formAdd->createView()]);
     }
 
     /**
-     * @Route("/showQuotes/{id}", name="showQuotes_catg")
+     * @Route("/showQuotes/{slug}", name="showQuotes_catg")
      */
-    public function showQuotes(Request $rq, $id)
+    public function showQuotes(Request $rq, $slug)
     {
         $em = $this->getDoctrine()->getManager();
         $catgReposit = $this->getDoctrine()->getRepository(Category::class);
         $quoteReposit = $this->getDoctrine()->getRepository(Quote::class);
-        $catg = $catgReposit->find($id);
+        $catg = $catgReposit->findOneBy(['slug' => $slug]);
+        $id = $catg->getId();
 
         $quotes = $catg->getQuotes();
 
