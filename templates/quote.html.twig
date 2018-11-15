@@ -1,50 +1,46 @@
-{% extends "base.html.twig" %}
+{% extends "base.html.twig" %} {% block title %}Liste Quotes{% endblock %}
+{%block body %} {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
+<a href="{{ path('app_logout') }} ">se déconnecter</a>
+<p>user: {{ app.user.username }}</p>
+{% else %} <a href="/login ">se connecter</a>
 
-{% block title %}Liste Quotes{% endblock %}
-
-{% block body %}
-
-<h1> Quotes </h1>
-
-{% if formAdd is defined %}
-{{ include('new.html.twig') }}
 {% endif %}
 
+<h1>Quotes</h1>
+{% if (formAdd is defined) and (is_granted('IS_AUTHENTICATED_FULLY')) %}
+{{ include("new.html.twig") }} {% endif %}
 
 <form name="f" method="get">
-    <input name="search" id="search" type="text">
-    <input type="submit" value="search">
+	<input name="search" id="search" type="text" />
+	<input type="submit" value="search" />
 </form>
 
 <a href="{{ path('list_catg') }} ">Catégories</a>
 
 <ul>
-    {% for q in quotes %}
-    <li>
-        {{ q.content }}<br />
-        {% if q.category != null %}
-        {{ q.category.libCatg }}
-        {% endif %}
-        <p class="meta">---{{q.meta}}
-            <a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>
-            <a href="{{ path('delete_quotes', {'id': q.id}) }}">Supprimer</a>
-        </p>
-
-    </li>
-    {% endfor %}
+	{% for q in quotes %}
+	<li>
+		{{ q.content }}<br />
+		{% if q.category != null %} {{ q.category.libCatg }} {% endif %}
+		<p class="meta">
+			---{{ q.meta }} {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
+			<a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>
+			<a href="{{ path('delete_quotes', {'id': q.id}) }}">Supprimer</a> {% endif
+			%}
+		</p>
+	</li>
+	{% endfor %}
 </ul>
-{% endblock %}
-
-{% block stylesheets %}
+{% endblock %} {% block stylesheets %}
 <style>
-    .meta {
-        font-style: italic;
-        color: grey;
-    }
+	.meta {
+		font-style: italic;
+		color: grey;
+	}
 
-    h1,
-    form {
-        text-align: center
-    }
+	h1,
+	form {
+		text-align: center;
+	}
 </style>
 {% endblock %}

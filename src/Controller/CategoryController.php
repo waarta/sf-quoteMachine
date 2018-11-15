@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Quote;
 use App\Form\CategoryType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,6 +38,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("/deleteCategory/{id}", name="delete_catg")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete($id)
     {
@@ -58,6 +60,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("/modifyCategory/{slug}", name="modify_catg")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function modify(Request $rq, $slug)
     {

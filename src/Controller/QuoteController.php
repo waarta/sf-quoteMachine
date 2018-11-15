@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Quote;
 use App\Form\QuoteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,7 @@ class QuoteController extends Controller
         //ajout
         $formAdd->handleRequest($rq);
         if ($formAdd->isSubmitted() && $formAdd->isValid()) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             $quote = $formAdd->getData();
             $em->persist($quote);
             $em->flush();
@@ -46,6 +48,7 @@ class QuoteController extends Controller
 
     /**
      * @Route("/deleteQuote/{id}", name="delete_quotes")
+     * @IsGranted("ROLE_USER")
      */
     public function delete($id)
     {
@@ -59,6 +62,7 @@ class QuoteController extends Controller
 
     /**
      * @Route("/modifyQuote/{id}", name="modify_quotes")
+     * @IsGranted("ROLE_USER")
      */
     public function modify(Request $rq, $id)
     {
