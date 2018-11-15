@@ -18,5 +18,8 @@ $application->run(new \Symfony\Component\Console\Input\ArrayInput([
 $application->run(new \Symfony\Component\Console\Input\ArrayInput([
     'command' => 'doctrine:schema:create',
 ]));
+$application->run(new \Symfony\Component\Console\Input\ArrayInput([
+    'command' => 'doctrine:fixtures:load',
+]));
 
 $kernel->shutdown();
