@@ -31,6 +31,12 @@ class Quote
      */
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="quotes")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +74,18 @@ class Quote
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

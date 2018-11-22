@@ -37,6 +37,7 @@ class QuoteController extends Controller
         if ($formAdd->isSubmitted() && $formAdd->isValid()) {
             $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
             $quote = $formAdd->getData();
+            $quote->setOwner($this->getUser());
             $em->persist($quote);
             $em->flush();
             return $this->redirectToRoute('list_quotes');

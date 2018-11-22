@@ -15,7 +15,7 @@ class QuoteType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class, ['label' => 'Citation'])
-            ->add('meta', TextareaType::class, ['label' => 'Auteur'])
+            ->add('meta', TextareaType::class, ['label' => 'Meta'])
             ->add('category', EntityType::class, array(
                 'class' => Category::class,
                 'required' => false,

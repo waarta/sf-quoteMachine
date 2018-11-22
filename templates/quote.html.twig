@@ -21,10 +21,12 @@
 	{% for q in quotes %}
 	<li>
 		{{ q.content }}<br />
-		{% if q.category != null %} {{ q.category.libCatg }} {% endif %}
+		{% if q.Owner != null %} auteur: {{ q.Owner.username }} {% endif %} {% if
+		q.category != null %} {{ q.category.libCatg }} {% endif %}
 		<p class="meta">
-			---{{ q.meta }} {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
-			<a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>
+			---{{ q.meta }} {% if (is_granted('QUOTE_EDIT',q)) %}
+			<a href="{{ path('modify_quotes', {'id': q.id}) }} ">Modifier</a>{% endif
+			%} {% if (is_granted('QUOTE_DELETE',q)) %}
 			<a href="{{ path('delete_quotes', {'id': q.id}) }}">Supprimer</a> {% endif
 			%}
 		</p>
