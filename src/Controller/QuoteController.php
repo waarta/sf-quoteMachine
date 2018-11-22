@@ -3,14 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\Quote;
+use App\Event\EditQuoteEvent;
 use App\Form\QuoteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuoteController extends Controller
 {
+    private $dispatcher;
+
+    public function __construct(EventDispatcher $eventdispatcher)
+    {
+        $dispatcher = $eventdispatcher;
+    }
+
     /**
      * @Route("/quotes/", name="list_quotes")
      */
@@ -77,6 +86,9 @@ class QuoteController extends Controller
             $q = $formAdd->getData();
             $em->persist($q);
             $em->flush();
+            //dispatch event
+            $event = new EditQuoteEvent($q);
+            $this->dispatcher->dispatch('quote.edit', $event);
             return $this->redirectToRoute('list_quotes');
         }
         return $this->render('modify_quote.html.twig', ['id' => $id, 'q' => $q, 'formAdd' => $formAdd->createView()]);

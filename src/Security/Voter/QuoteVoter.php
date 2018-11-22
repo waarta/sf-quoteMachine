@@ -38,6 +38,9 @@ class QuoteVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         $quote = $subject;
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
         switch ($attribute) {
             case self::QUOTE_EDIT:
                 return $this->canEdit($quote, $user);
@@ -45,10 +48,6 @@ class QuoteVoter extends Voter
             case self::QUOTE_DELETE:
                 return $this->canDelete($quote, $user);
                 break;
-        }
-
-        if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
         }
 
         return false;
