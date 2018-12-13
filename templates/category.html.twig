@@ -1,31 +1,41 @@
-{% extends "base.html.twig" %} {% block title %}Liste Categories{% endblock %}
-{% block body %} {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
-<a href="{{ path('app_logout') }} ">se déconnecter</a>
-<p>user: {{ app.user.username }}</p>
-{% else %} <a href="/login ">se connecter</a> {% endif %}
+{% extends "base.html.twig" %}
+{% block title %}Liste Categories{% endblock %}
+{% block body %}
+    {% if (is_granted('IS_AUTHENTICATED_FULLY')) %}
+        <a href="{{ path('app_logout') }} ">se déconnecter</a>
+        <p>user:
+            {{ app.user.username }}</p>
+    {% else %}
+        <a href="/login ">se connecter</a>
+    {% endif %}
 
-<h1>Categories</h1>
+    <h1>Categories</h1>
 
-{% if (is_granted('ROLE_ADMIN')) %} {{ include("new.html.twig") }} {% endif %}
+    {% if (is_granted('ROLE_ADMIN')) %}
+        {{ include("new.html.twig") }}
+    {% endif %}
 
-<a href="{{ path('list_quotes') }} ">Quotes</a>
-<ul>
-	{% for c in categories %}
-	<li>
-		<p>
-			{{ c.libCatg }} (slug:{{ c.slug }}){% if (is_granted('ROLE_ADMIN')) %}
-			<a href="{{ path('modify_catg', {'slug': c.slug}) }} ">Modifier</a>
-			<a href="{{ path('delete_catg', {'id': c.id}) }}">Supprimer</a>{% endif %}
-			<a href="{{ path('showQuotes_catg', {'slug': c.slug}) }}">voir quotes</a>
-		</p>
-	</li>
-	{% endfor %}
-</ul>
-{% endblock %} {% block stylesheets %}
-<style>
-	h1,
-	form {
-		text-align: center;
-	}
-</style>
+    <a href="{{ path('list_quotes') }} ">Quotes</a>
+    <ul>
+        {% for c in categories %}
+            <li>
+                <p>
+                    {{ c.libCatg }}
+                    (slug:{{ c.slug }}){% if (is_granted('ROLE_ADMIN')) %}
+                        <a href="{{ path('modify_catg', {'slug': c.slug}) }} ">Modifier</a>
+                        <a href="{{ path('delete_catg', {'id': c.id}) }}">Supprimer</a>
+                    {% endif %}
+                    <a href="{{ path('showQuotes_catg', {'slug': c.slug}) }}">voir quotes</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        form,
+        h1 {
+            text-align: center;
+        }
+    </style>
 {% endblock %}
