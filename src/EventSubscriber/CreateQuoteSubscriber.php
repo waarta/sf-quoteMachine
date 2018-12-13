@@ -2,17 +2,24 @@
 
 namespace App\EventSubscriber;
 
-use App\Event\CreateQuoteEvent;
+use App\Event\QuoteEvent;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CreateQuoteSubscriber implements EventSubscriberInterface
 {
-    public function onQuoteCreate(CreateQuoteEvent $event)
-    {
-        $returnValue = $event->getReturnValue();
-        // modify the original ``$returnValue`` value
 
-        $event->setReturnValue($returnValue);
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function onQuoteCreate(QuoteEvent $event)
+    {
+        $quote = $event->getQuote();
+        $this->logger->info('Quote create:' . $quote->getId());
     }
 
     public static function getSubscribedEvents()

@@ -44,10 +44,8 @@ class QuoteVoter extends Voter
         switch ($attribute) {
             case self::QUOTE_EDIT:
                 return $this->canEdit($quote, $user);
-                break;
             case self::QUOTE_DELETE:
                 return $this->canDelete($quote, $user);
-                break;
         }
 
         return false;
