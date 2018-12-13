@@ -40,9 +40,15 @@ class User implements UserInterface
      */
     private $quotes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="idUser", orphanRemoval=true)
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->quotes = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($quote->getOwner() === $this) {
                 $quote->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->contains($vote)) {
+            $this->votes->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getIdUser() === $this) {
+                $vote->setIdUser(null);
             }
         }
 
